@@ -1,4 +1,5 @@
-﻿using EFCore8.ConsoleApp.Entities;
+﻿using EFCore8.ConsoleApp.Data.ValueGenerator;
+using EFCore8.ConsoleApp.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,6 +21,7 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 			builder.Property(p => p.Name)
 				.HasColumnName("Name")
 				.HasColumnType("varchar(50)")
+				.HasValueGenerator<MyNameGenerator>()
 				.IsRequired();
 
 			builder.Property(p => p.Age)

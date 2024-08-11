@@ -8,7 +8,7 @@ _context.Database.EnsureCreated();
 
 var writer = new Writer()
 {
-	Name = "Dostoyewski",
+	//Name = "Dostoyewski",
 	Age = 48,
 	Books = new List<Book>() {
 		new Book { Name = "Suç ve Cezea", PublishYear = 1854 },

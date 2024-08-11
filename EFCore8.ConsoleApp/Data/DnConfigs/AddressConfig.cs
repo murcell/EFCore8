@@ -1,4 +1,5 @@
-﻿using EFCore8.ConsoleApp.Entities;
+﻿using EFCore8.ConsoleApp.Data.ValueGenerator;
+using EFCore8.ConsoleApp.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -24,6 +25,7 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.Property(ad=>ad.Country)
 				.HasColumnName("Country")
 				.HasColumnType("varchar(50)")
+				
 				.IsRequired();
 
 			builder
@@ -37,7 +39,8 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.Property<DateTime>("CreatedDate")
 				.HasColumnType("datetime")
 				//.HasDefaultValue(DateTime.Now)
-				.HasDefaultValueSql("getdate()")
+				//.HasDefaultValueSql("getdate()")
+				.HasValueGenerator<MyDateGenerator>()
 				.IsRequired();
 
 			//yeni ifade
