@@ -29,6 +29,15 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.HasColumnType("int")
 				.IsRequired();
 
+			builder
+				.Property(u => u.BookType)
+				.HasColumnType("varchar(100)")
+				//HasConversion güzel bir özellik
+				.HasConversion(v => v.ToString(), // when create
+							   vv => (BookType)Enum.Parse(typeof(BookType), vv)) // when read
+				.IsRequired();
+
+
 		}
 	}
 }
