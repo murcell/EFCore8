@@ -27,6 +27,11 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.HasColumnType("int")
 				.IsRequired();
 
+			builder
+				.HasOne(u => u.Address)
+				.WithOne(a => a.User)
+				.HasForeignKey<Address>(a => a.UserId);
+
 			builder.HasData(new UserMg()
 			{
 				Id = 1,

@@ -7,10 +7,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 
+MgDbContext _context = new MgDbContext();
+_context.Database.EnsureDeleted();
+_context.Database.EnsureCreated();
 
+UserMg user = new UserMg()
+{
+	Name = "Second User",
+	Age = 45,
+	Address = new Address { Contry = "UGANDA" }
+};
 
+_context.Users.Add(user);
+_context.SaveChanges();
 
-
+_context.Users.Remove(user);
+_context.SaveChanges();
 Console.ReadLine();
 
 

@@ -21,5 +21,7 @@ namespace EFCore8.ConsoleApp.Entities
 		public string Name { get; set; } = null!;
 
         public int Age { get; set; }
+
+        public Address Address { get; set; }
     }
 }
