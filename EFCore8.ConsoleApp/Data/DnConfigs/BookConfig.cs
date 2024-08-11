@@ -1,4 +1,5 @@
-﻿using EFCore8.ConsoleApp.Entities;
+﻿using EFCore8.ConsoleApp.Data.ValueConverters;
+using EFCore8.ConsoleApp.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -33,8 +34,9 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.Property(u => u.BookType)
 				.HasColumnType("varchar(100)")
 				//HasConversion güzel bir özellik
-				.HasConversion(v => v.ToString(), // when create
-							   vv => (BookType)Enum.Parse(typeof(BookType), vv)) // when read
+				//.HasConversion(v => v.ToString(), // when create
+							  // vv => (BookType)Enum.Parse(typeof(BookType), vv)) // when read
+				.HasConversion<MyEnumConverter>()
 				.IsRequired();
 
 
