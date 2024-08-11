@@ -17,6 +17,9 @@ namespace EFCore8.ConsoleApp.Data
 		public DbSet<Address> Addresses { get; set; }
 		public DbSet<Writer> Writers { get; set; }
 		public DbSet<Book> Books { get; set; }
+
+		public DbSet<RoleMg> Roles { get; set; }
+		public DbSet<RoleUser> RolesUsers { get; set; }
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer("Server=localhost,1433;Database=EFCoreEducation; User=sa; Password=Pass1234.?;TrustServerCertificate=True");

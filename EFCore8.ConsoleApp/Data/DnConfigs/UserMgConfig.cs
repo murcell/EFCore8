@@ -32,6 +32,29 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.WithOne(a => a.User)
 				.HasForeignKey<Address>(a => a.UserId);
 
+			builder
+				.HasMany(u => u.Roles)
+				.WithMany(r => r.Users)
+				.UsingEntity<RoleUser>(l=>l
+									  .HasOne(ru=>ru.Role)
+									  .WithMany(r=>r.RoleUsers)
+									  //.HasPrincipalKey(rux=>rux.RoleId)
+									  .HasForeignKey(ru=>ru.RoleId),
+									  //.OnDelete(DeleteBehavior.Cascade),
+									  r=>r
+									  .HasOne(ru=>ru.User)
+									  .WithMany(u=>u.RoleUsers)
+									  //.HasPrincipalKey(rux => rux.UserId)
+									  .HasForeignKey(ru=>ru.UserId)
+									  //.OnDelete(DeleteBehavior.Cascade)
+									  //,j=>j.ToTable("RolesUsers")
+
+									  // RoleUserConfig dosyasında HasPrincipalKey ve tablo isimlerini vermeseydik ya da RoleUserConfig sınıfını oluşturmasaydık HasPrincipalKey ve ToTable alanlarını yorumdan kaldırıp bu şekilde de çözebilirdik. Ayrıca  .OnDelete(DeleteBehavior.SetNull) yapmak istersek RoleUser sınıfındaki RoleId ve UserId alanlarını nullable yapmalıyız ve de Id eklemeliyiz
+
+									  );
+			 
+
+
 			builder.HasData(new UserMg()
 			{
 				Id = 1,

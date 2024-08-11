@@ -11,7 +11,7 @@ namespace EFCore8.ConsoleApp.Entities
 	//[Table("Users")]
 	public class UserMg
 	{
-		// bu şekillerde verdiğimiz ef
+		// bu şekillerde verdiğimizde ef
 		// tanıyor ve primary key olarak set ediyor
 		//[Key]
 		//[Column("Id")]
@@ -22,6 +22,10 @@ namespace EFCore8.ConsoleApp.Entities
 
         public int Age { get; set; }
 
-        public Address Address { get; set; }
-    }
+		public Address Address { get; set; } = null!;
+
+		public ICollection<RoleMg> Roles { get; set; } = new HashSet<RoleMg>();
+
+		public ICollection<RoleUser> RoleUsers { get; set; } = new HashSet<RoleUser>();
+	}
 }
