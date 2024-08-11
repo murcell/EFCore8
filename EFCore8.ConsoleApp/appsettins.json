@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": {
+
+    "EfcoreConStr": "Server=localhost,1433;Database=EFCoreEducation; User=sa; Password=Pass1234.?;TrustServerCertificate=True"
+
+  }
+  
+}

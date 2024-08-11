@@ -26,12 +26,11 @@ namespace EFCore8.ConsoleApp.Repository
 			}
 		}
 
-		public List<UserMg> GetUsesr()
+		public List<UserMg> GetAllUsers()
 		{
-			using (_context)
-			{
-				return _context.Users.ToList();
-			}
+			
+			return _context.Users.ToList();
+			
 		}
 
 		public List<UserMg> GetUsers(string name)

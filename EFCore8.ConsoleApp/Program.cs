@@ -1,63 +1,81 @@
 ﻿using EFCore8.ConsoleApp.Data;
 using EFCore8.ConsoleApp.Entities;
+using EFCore8.ConsoleApp.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 Console.WriteLine("Uygulama başladı!");
 
-//// veri tabanı üretmenin bir yolu, başka yolları da var.
-//MgDbContext _context = new MgDbContext();
-//_context.Database.EnsureDeleted();
-//_context.Database.EnsureCreated();
-//var user = _context.Users.FirstOrDefault();
-//Console.WriteLine($"ilk user : {user!.Name}");
+//IConfiguration configuration = new ConfigurationBuilder()
+//	.SetBasePath(Environment.CurrentDirectory)
+//	.AddJsonFile("appsettins.json", optional: true, reloadOnChange: true)
+//	.Build();
 
-//DBCreate();
+//  var ops = new DbContextOptionsBuilder<MgDbContext>()
+//  .UseSqlServer(configuration.GetConnectionString("EfcoreConStr"))
+//	.LogTo(Console.WriteLine, LogLevel.Information)
+//	.Options;
 
-#region ChangeTracking
+//// MgDbContext db = new (ops);
+//// db.Database.EnsureDeleted();
+//// db.Database.EnsureCreated();
 
-//UserMg user = new UserMg()
-//{
-//	Name = "Fourth User",
-//	Age = 33
-//};
+var services = new ServiceCollection();
+//services.AddDbContext<MgDbContext>(options => {
+//	new MgDbContext(ops);
+//});
 
-//using (var db = new MgDbContext())
-//{
-//	var entry = db.Entry(user);
-//	db.Entry(user).State = EntityState.Added;
-//	entry = db.Entry(user);
-//	db.SaveChanges();
+services.AddDbContext<MgDbContext>(options =>
+{
+	IConfiguration configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+	options.UseSqlServer(configuration.GetConnectionString("EfcoreConStr"));
+	options.LogTo(Console.WriteLine, LogLevel.Information);
+});
 
-//	user.Name = "Fourth User Updated";
-//	entry = db.Entry(user);
-//	db.SaveChanges();
-//}
+services.AddSingleton<IConfiguration>(cfg =>
+{
+	return new ConfigurationBuilder()
+	.SetBasePath(Environment.CurrentDirectory)
+	.AddJsonFile("appsettins.json", optional: true, reloadOnChange: true)
+	.Build();
+});
+services.AddScoped<UserMgCommands>();
+services.AddScoped<UserMgQueries>();
+
+ServiceProvider provider = services.BuildServiceProvider();
+
+MgDbContext db = provider.GetRequiredService<MgDbContext>();
+db.Database.EnsureDeleted();
+db.Database.Migrate();
+
+UserMgCommands userCommand = provider.GetRequiredService<UserMgCommands>();
+userCommand.AddUser(new UserMg { Name = "User eleven", Age = 11 });
+
+UserMgQueries userMgQueries = provider.GetRequiredService<UserMgQueries>();
+var usersAll = userMgQueries.GetAllUsers();
+
+usersAll.ForEach(user => {
+    Console.WriteLine(user.Id + "\t" + user.Name +"\t"+ user.Age);
+});
 
 
 
-//using (var db = new MgDbContext())
-//{
-//	// var user = db.Users.FirstOrDefault();
-//	var user = db.Users.AsNoTracking().FirstOrDefault();
 
-//	var entries = db.ChangeTracker.Entries();
-//	foreach ( var entry in entries)
-//	{
-//		Console.WriteLine(entry);
-//	}
 
-//}
 
-//Console.WriteLine($"{user.Id}'li user eklenmiştir."); 
-#endregion
+
+
+
+
+
+
+
+
+
 
 Console.ReadLine();
 
 
 
-void DBCreate()
-{
-	using var db = new MgDbContext();
-	db.Database.EnsureDeleted();
-	db.Database.EnsureCreated();
-}

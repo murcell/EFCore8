@@ -27,7 +27,7 @@ namespace EFCore8.ConsoleApp.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Age", "Name" },
-                values: new object[] { 1, 0, "First User" });
+                values: new object[] { 1, 25, "First User" });
         }
 
         /// <inheritdoc />

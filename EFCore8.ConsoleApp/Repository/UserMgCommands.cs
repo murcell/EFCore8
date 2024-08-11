@@ -20,6 +20,15 @@ namespace EFCore8.ConsoleApp.Repository
 
 		public void AddUser(UserMg user)
 		{
+			
+				_context.Users.Add(user);
+				//_context.Entry(user).State = EntityState.Added;
+				_context.SaveChanges();
+			
+		}
+
+		public void AddUserWithUsing(UserMg user)
+		{
 			using (_context)
 			{
 				//_context.Users.Add(user);
