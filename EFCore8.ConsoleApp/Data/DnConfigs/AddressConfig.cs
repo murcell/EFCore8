@@ -33,6 +33,13 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.HasColumnType("City(50)")
 				.IsRequired();
 
+			builder
+				.Property<DateTime>("CreatedDate")
+				.HasColumnType("datetime")
+				//.HasDefaultValue(DateTime.Now)
+				.HasDefaultValueSql("getdate()")
+				.IsRequired();
+
 			//yeni ifade
 			//builder.OwnsOne(u => u.AddressDetails, a => {
 
