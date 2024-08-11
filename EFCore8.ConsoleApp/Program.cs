@@ -1,28 +1,39 @@
 ﻿using EFCore8.ConsoleApp.Data;
 using EFCore8.ConsoleApp.Entities;
-using EFCore8.ConsoleApp.Repository;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 
 MgDbContext _context = new MgDbContext();
 _context.Database.EnsureDeleted();
 _context.Database.EnsureCreated();
 
-UserMg user = new UserMg()
+var writer = new Writer()
 {
-	Name = "Second User",
-	Age = 45,
-	Address = new Address { Contry = "UGANDA" }
+	Name = "Dostoyewski",
+	Age = 48,
+	Books = new List<Book>() {
+		new Book { Name = "Suç ve Cezea", PublishYear = 1854 },
+		new Book { Name = "Yeraltından Notlat", PublishYear = 1865 },
+		new Book { Name = "Kumarbaz", PublishYear = 1842 },
+		new Book { Name = "İnsancıklar", PublishYear = 1853 }
+	}
 };
 
-_context.Users.Add(user);
+_context.Writers.Add(writer);
 _context.SaveChanges();
 
-_context.Users.Remove(user);
-_context.SaveChanges();
+//UserMg user = new UserMg()
+//{
+//	Name = "Second User",
+//	Age = 45,
+//	Address = new Address { Contry = "UGANDA" }
+//};
+//_context.Users.Add(user);
+//_context.SaveChanges();
+//_context.Users.Remove(user);
+//_context.SaveChanges();
+
+
+
 Console.ReadLine();
 
 
