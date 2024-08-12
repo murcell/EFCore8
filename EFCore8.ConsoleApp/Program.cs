@@ -5,42 +5,40 @@ using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
 
 
+
 //==================================== Optimistic Concurrency =====================
 
 
-MgDbContext _context = new();
-_context.Database.EnsureDeleted();
-_context.Database.EnsureCreated();
+//MgDbContext _context = new();
+//_context.Database.EnsureDeleted();
+//_context.Database.EnsureCreated();
 
 
-UserMg? userMg1 = _context.Users.FirstOrDefault();
-userMg1!.Name = "John Doe";
+//UserMg? userMg1 = _context.Users.FirstOrDefault();
+//userMg1!.Name = "John Doe";
 
 
-MgDbContext _context2 = new();
-UserMg? userMg2 = _context2.Users.FirstOrDefault();
-userMg2!.Name = "Mon Do";
+//MgDbContext _context2 = new();
+//UserMg? userMg2 = _context2.Users.FirstOrDefault();
+//userMg2!.Name = "Mon Do";
 
 
-_context.SaveChanges();
+//_context.SaveChanges();
 
-try
-{
-	_context2.SaveChanges();
-}
-catch (DbUpdateConcurrencyException ex)
-{
-	Console.WriteLine(ex.Message);
-	Console.WriteLine(ex.StackTrace);
-	Console.WriteLine("Rollback");
-	_context2.Entry(userMg2!).Reload();
-	userMg2.Name = "Mon Do";
-	_context2.SaveChanges();
-}
+//try
+//{
+//	_context2.SaveChanges();
+//}
+//catch (DbUpdateConcurrencyException ex)
+//{
+//	Console.WriteLine(ex.Message);
+//	Console.WriteLine(ex.StackTrace);
+//	Console.WriteLine("Rollback");
+//	_context2.Entry(userMg2!).Reload();
+//	userMg2.Name = "Mon Do";
+//	_context2.SaveChanges();
+//}
 
-
-Console.WriteLine("OK");
-Console.ReadLine();
 
 
 
@@ -102,121 +100,121 @@ Console.ReadLine();
 
 
 
-List<RoleMg> roles = new()
-{
-	new RoleMg
-	{
-		Name = "Admin",
-	},
-	new RoleMg
-	{
-		Name = "Moderator",
+//List<RoleMg> roles = new()
+//{
+//	new RoleMg
+//	{
+//		Name = "Admin",
+//	},
+//	new RoleMg
+//	{
+//		Name = "Moderator",
 
-	},
-	new RoleMg
-	{
-		Name = "User"
-	},
-	new RoleMg
-	{
-		Name = "Guest"
-	}
-};
+//	},
+//	new RoleMg
+//	{
+//		Name = "User"
+//	},
+//	new RoleMg
+//	{
+//		Name = "Guest"
+//	}
+//};
 
-Writer writer = new()
-{
-	Age = 25,
+//Writer writer = new()
+//{
+//	Age = 25,
 
-	Name = "John Doe",
-	//Name = new MyNameGenerator().Next(null),
+//	Name = "John Doe",
+//	//Name = new MyNameGenerator().Next(null),
 
-	//Address = new Address
-	//{
-	//	AddressDetails = new("TR", "Ist")
-	//},
-	Books = new List<Book>
-	{
-		new Book
-		{
-			Name = "Introduction to C#",
-			BookType = BookType.Novel
-
-
-		},
-		new Book
-		{
-			Name = "Data Structures and Algorithms",
-			BookType = BookType.Story
-
-		},
-		new Book
-		{
-			Name = "alo melo ",
-			BookType = BookType.Poem
-
-		}
-	}
-	//Roles = roles
-
-};
-Writer writer1 = new()
-{
-	Age = 25,
-
-	Name = "Mon Do",
-
-	//Name = new MyNameGenerator().Next(null),
-
-	//Address = new Address
-	//{
-	//	AddressDetails = new("FR", "Pr")
-	//},
-	Books = new List<Book>
-	{
-		new Book
-		{
-			Name = "olalala",
-			BookType = BookType.Novel
-
-		},
-		new Book
-		{
-			Name = "Tollala",
-			BookType = BookType.Story
-
-		},
-		new Book
-		{
-			Name = "follala ",
-			BookType = BookType.Poem
-
-		}
-	}
-	//Roles = roles.Skip(1).ToList()
-
-};
+//	//Address = new Address
+//	//{
+//	//	AddressDetails = new("TR", "Ist")
+//	//},
+//	Books = new List<Book>
+//	{
+//		new Book
+//		{
+//			Name = "Introduction to C#",
+//			BookType = BookType.Novel
 
 
+//		},
+//		new Book
+//		{
+//			Name = "Data Structures and Algorithms",
+//			BookType = BookType.Story
+
+//		},
+//		new Book
+//		{
+//			Name = "alo melo ",
+//			BookType = BookType.Poem
+
+//		}
+//	}
+//	//Roles = roles
+
+//};
+//Writer writer1 = new()
+//{
+//	Age = 25,
+
+//	Name = "Mon Do",
+
+//	//Name = new MyNameGenerator().Next(null),
+
+//	//Address = new Address
+//	//{
+//	//	AddressDetails = new("FR", "Pr")
+//	//},
+//	Books = new List<Book>
+//	{
+//		new Book
+//		{
+//			Name = "olalala",
+//			BookType = BookType.Novel
+
+//		},
+//		new Book
+//		{
+//			Name = "Tollala",
+//			BookType = BookType.Story
+
+//		},
+//		new Book
+//		{
+//			Name = "follala ",
+//			BookType = BookType.Poem
+
+//		}
+//	}
+//	//Roles = roles.Skip(1).ToList()
+
+//};
 
 
 
 
 
-//=============================================== Creatre DB ====================
-MgDbContext db = new();
-db.Database.EnsureDeleted();
-db.Database.EnsureCreated();
+
+
+////=============================================== Creatre DB ====================
+//MgDbContext db = new();
+//db.Database.EnsureDeleted();
+//db.Database.EnsureCreated();
 
 
 
-//=============================================== Add  Entities =================
-db.Writers.Add(writer);
-db.SaveChanges();
+////=============================================== Add  Entities =================
+//db.Writers.Add(writer);
+//db.SaveChanges();
 
-Thread.Sleep(1000);
+//Thread.Sleep(1000);
 
-db.Writers.Add(writer1);
-db.SaveChanges();
+//db.Writers.Add(writer1);
+//db.SaveChanges();
 
 
 
