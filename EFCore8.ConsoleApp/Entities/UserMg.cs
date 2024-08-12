@@ -22,6 +22,9 @@ namespace EFCore8.ConsoleApp.Entities
 
         public int Age { get; set; }
 
+		//[Timestamp]
+		//public byte[] ConcurencyToken { get; set; } = null!;
+
 		public Address Address { get; set; } = null!;
 
 		public ICollection<RoleMg> Roles { get; set; } = new HashSet<RoleMg>();

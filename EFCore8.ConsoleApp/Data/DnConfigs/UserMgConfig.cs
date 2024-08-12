@@ -34,6 +34,15 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.WithOne(a => a.User)
 				.HasForeignKey<Address>(a => a.UserId);
 
+
+			builder
+				.Property<byte[]>("ConcurrencyToken")
+				.IsRowVersion()
+				.IsConcurrencyToken();
+			//.HasDefaultValue(new byte[8])
+			//.IsRequired();
+
+
 			builder
 				.HasMany(u => u.Roles)
 				.WithMany(r => r.Users)

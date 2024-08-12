@@ -22,6 +22,10 @@ namespace EFCore8.ConsoleApp.Entities
 		Satire,
 		ShortStory,
 		Thriller,
-		Western
+		Western,
+		Novel,
+		Story,
+		Poem,
+
 	}
 }

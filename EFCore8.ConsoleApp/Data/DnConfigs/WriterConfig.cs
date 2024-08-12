@@ -33,6 +33,13 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 				.HasForeignKey(b => b.WriterId)
 				.OnDelete(DeleteBehavior.Cascade);
 
+			//builder
+			//	.Property<byte[]>("ConcurrencyToken")
+			//	.IsRowVersion()
+			//	.IsConcurrencyToken();
+			//	//.HasDefaultValue(new byte[8])
+			//	//.IsRequired();
+
 
 			//builder.HasData(new Writer()
 			//{
