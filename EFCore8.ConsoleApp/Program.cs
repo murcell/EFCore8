@@ -1,11 +1,54 @@
 ﻿using EFCore8.ConsoleApp.Data;
 using EFCore8.ConsoleApp.Data.ValueGenerator;
+using EFCore8.ConsoleApp.DataForMongo;
 using EFCore8.ConsoleApp.Entities;
+using EFCore8.ConsoleApp.MongoModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Runtime.InteropServices;
 
 
 
+//==================================== MongoDb =====================
+
+var mongoDb = new MgMongoDbContext();
+var userMongo = new MongoUser
+{
+	Id = new MongoDB.Bson.ObjectId(),
+	Name = "Muro",
+
+	MongoAddress = new()
+	{
+		City = "istanbul",
+		PostalCode = "34000",
+		Street = "Jadde 1"
+	},
+	MongoAddresses =
+	[
+		new()
+		{
+			City = "paris",
+			PostalCode = "87000",
+			Street = "Jadde 2"
+		},
+		new()
+		{
+			City = "monaco",
+			PostalCode = "27000",
+			Street = "Jadde 3"
+		}
+	],
+};
+
+mongoDb.Users.Add(userMongo);
+mongoDb.SaveChanges();
+
+var user = mongoDb.Users.FirstOrDefault();
+Console.WriteLine(user);
+Console.ReadLine();
+
+
+//==================================== MongoDb =====================
 //==================================== Optimistic Concurrency =====================
 
 
