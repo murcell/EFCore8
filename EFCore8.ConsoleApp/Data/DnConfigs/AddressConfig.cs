@@ -31,8 +31,8 @@ namespace EFCore8.ConsoleApp.Data.DnConfigs
 			builder
 				.ComplexProperty(k => k.AddressDetails)
 				.Property(ad => ad.City)
-				.HasColumnName("Country")
-				.HasColumnType("City(50)")
+				.HasColumnName("City")
+				.HasColumnType("varchar(50)")
 				.IsRequired();
 
 			builder
